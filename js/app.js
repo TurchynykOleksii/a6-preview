@@ -1,25 +1,4 @@
 
-// import Bound from './libs/bounds.js'
-
-// const boundary = Bound({
-// 	margins: {bottom: 100}
-// })
-
-// const image = document.querySelectorAll('img[data-src]')
-
-// const whenImageEnters = (image) => {
-// 	return () => {
-// 		image.src = image.dataset.src
-// 	}
-// }
-
-// image.forEach(img => {
-// 	boundary.watch(img, whenImageEnters(img))
-// })
-
-// Динамический адаптив
-// Документация: https://github.com/FreelancerLifeStyle/dynamic_adapt#readme
-//import './libs/dynamicAdapt.js';
 
 let isDesk = $("body").hasClass("desktop"),
   menuOpen = false;
@@ -217,8 +196,8 @@ const swiper3 = new Swiper('.category__swiper', {
 	},
 });
 
-$('.swiper-button-prev').remove();
-$('.swiper-button-next').remove();
+// $('.swiper-button-prev').remove();
+// $('.swiper-button-next').remove();
 
 const swiper4 = new Swiper('.team__swiper', {
 	slidesPerView: 1,
@@ -232,4 +211,40 @@ const swiper4 = new Swiper('.team__swiper', {
 	},
 	spaceBetween: 20,
 	autoHeight: true,
+});
+
+const swiper5 = new Swiper('.video__swiper', {
+	slidesPerView: 1,
+	watchOverflow: true,
+	pagination: {
+		el: '.video__swiper .swiper-pagination',
+	},
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+	spaceBetween: 20,
+	autoHeight: true,
+    breakpoints: {
+		768: {
+			loop: true,
+		},
+	},
+});
+
+$('.video-frame').on('click', function () {
+	let $this = $(this);
+    $(this).addClass('hide')
+	if (!$this.hasClass('video-play')) {
+		$this.addClass('video-play');
+
+		setTimeout(function () {
+			$this.find('img').fadeOut();
+		}, 500);
+
+		let src = $this.data('video-id');
+		let iframe = $('<iframe src="https://www.youtube.com/embed/' + src + '?rel=0&showinfo=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+
+		$this.find('.iframe').append(iframe);
+	}
 });
